@@ -4,3 +4,4 @@ astartectl
 astartectl_*
 .gobuild
 dist/
+result
