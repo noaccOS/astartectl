@@ -25,6 +25,7 @@
         overlay = self.overlays.default;
         packages = { inherit (pkgs) astartectl; };
         packages.default = self.packages.${system}.astartectl;
+        devShells.default = pkgs.callPackage .nix/shell.nix { };
       }
     );
 }
