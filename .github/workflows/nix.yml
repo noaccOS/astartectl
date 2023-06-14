@@ -34,4 +34,4 @@ jobs:
       - name: nix develop
         run: nix develop
       - name: Check elixir in path
-        run: elixir --version
+        run: go version
