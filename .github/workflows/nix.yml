@@ -33,5 +33,5 @@ jobs:
           nix_conf: experimental-features = nix-command flakes
       - name: nix develop
         run: nix develop
-      - name: Check elixir in path
+      - name: Check go in path
         run: go version
