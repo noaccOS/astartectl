@@ -1,32 +1,30 @@
 name: Examples
-on: push
+on:
+    push:
+    create:
 jobs:
-  compile-linux:
-    runs-on: ubuntu-latest
+  build:
+    name: Nix build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Install nix
-      - uses: nixbuild/nix-quick-install-action@v22
-        with:
-          nix_conf: experimental-features = nix-command flakes
-      - name: nix build
-        run: nix build
-      - name: test result
-        run: ./result/bin/astartectl help
-  complie-darwin:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install nix
-      - uses: nixbuild/nix-quick-install-action@v22
-        with:
-          nix_conf: experimental-features = nix-command flakes
-      - name: nix build
-        run: nix build
-      - name: test result
-        run: ./result/bin/astartectl help
-  nix-shell-linux:
-    runs-on: ubuntu-latest
+    - uses: actions/checkout@v3
+    - name: Install nix
+    - uses: nixbuild/nix-quick-install-action@v22
+      with:
+        nix_conf: experimental-features = nix-command flakes
+    - name: nix build
+      run: nix build
+    - name: test result
+      run: ./result/bin/astartectl help
+  develop:
+    name: Nix develop
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - name: Install nix
