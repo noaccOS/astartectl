@@ -1,0 +1,39 @@
+name: Examples
+on: push
+jobs:
+  compile-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install nix
+      - uses: nixbuild/nix-quick-install-action@v22
+        with:
+          nix_conf: experimental-features = nix-command flakes
+      - name: nix build
+        run: nix build
+      - name: test result
+        run: ./result/bin/astartectl help
+  complie-darwin:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install nix
+      - uses: nixbuild/nix-quick-install-action@v22
+        with:
+          nix_conf: experimental-features = nix-command flakes
+      - name: nix build
+        run: nix build
+      - name: test result
+        run: ./result/bin/astartectl help
+  nix-shell-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install nix
+      - uses: nixbuild/nix-quick-install-action@v22
+        with:
+          nix_conf: experimental-features = nix-command flakes
+      - name: nix develop
+        run: nix develop
+      - name: Check elixir in path
+        run: elixir --version
