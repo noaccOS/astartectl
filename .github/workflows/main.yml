@@ -16,19 +16,16 @@ jobs:
     name: Build and Test
     strategy:
       matrix:
-        go: ["go1.21", "go1.22"]
+        go: [1.21.x, 1.22.x]
         os: [ubuntu-22.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      GOTOOLCHAIN: ${{ matrix.go }}
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Go ${{ matrix.go }}
       uses: actions/setup-go@v4
       with:
-        cache: false
-        go-version: 1.22.x
+        go-version: ${{ matrix.go }}
       id: go
 
     - name: Check gofmt
@@ -47,7 +44,7 @@ jobs:
     # Load artifacts obtained with the most recent version of Go
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
-      if: matrix.go == 'go1.22'
+      if: matrix.go == '1.22.x'
       with:
         path: astartectl*
         name: astartectl-snapshot-${{ matrix.os }}

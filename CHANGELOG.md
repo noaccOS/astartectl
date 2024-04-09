@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Use Go 1.22 for releases.
+- Use Go 1.21 for releases.
 
 ## [23.5.1] - 2024-04-05
 ### Added
