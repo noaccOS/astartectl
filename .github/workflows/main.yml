@@ -5,6 +5,7 @@ on:
     branches:
       - 'master'
       - 'release-*'
+      - 'go-*'
   # Run on branch/tag creation
   create:
   # Run on Pull Requests
@@ -15,16 +16,19 @@ jobs:
     name: Build and Test
     strategy:
       matrix:
-        go: [1.21.x, 1.22.x]
+        go: ["go1.21", "go1.22"]
         os: [ubuntu-22.04, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      GOTOOLCHAIN: ${{ matrix.go }}
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Go ${{ matrix.go }}
       uses: actions/setup-go@v4
       with:
-        go-version: ${{ matrix.go }}
+        cache: false
+        go-version: 1.22.x
       id: go
 
     - name: Check gofmt
@@ -43,7 +47,7 @@ jobs:
     # Load artifacts obtained with the most recent version of Go
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
-      if: matrix.go == '1.22.x'
+      if: matrix.go == 'go1.22'
       with:
         path: astartectl*
         name: astartectl-snapshot-${{ matrix.os }}
