@@ -2,8 +2,6 @@ name: Release
 # Run only on tag push
 on:
   push:
-    tags:
-      - '*'
 
 jobs:
   release:
